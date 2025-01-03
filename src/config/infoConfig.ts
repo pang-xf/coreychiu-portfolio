@@ -7,14 +7,14 @@ export * from './activity'
 
 
 // personal info
-export const name = 'Corey Chiu'
+export const name = 'Pangxf'
 export const headline = 'Software engineer, Full-Stack web developer, and indie hacker.'
-export const introduction = 'I’m Corey, a software engineer based in Shenzhen, China. I like coding, and building interesting things'
-export const email = 'iamcoreychiu@gmail.com'
-export const githubUsername = 'iamcorey'
+export const introduction = 'I’m pangxf, a software engineer based in Chengdu, China. I like coding, and building interesting things'
+export const email = 'pxf19950809@gmail.com'
+export const githubUsername = 'pang-xf'
 
 // about page
-export const aboutMeHeadline = "I'm Corey Chiu, a software engineer based in Shenzhen, China."
+export const aboutMeHeadline = "I'm Pangxf, a software engineer based in Chengdu, China."
 export const aboutParagraphs = [
   "I love coding. I learned programming when I in college. I wrote my first program in Java when I was 18.",
   "I have a lot of hobbies, such as travelling, photography, watching movies, music and so on.",
@@ -39,38 +39,38 @@ export const socialLinks: Array<SocialLinkType> = [
   {
     name: 'X',
     icon: 'x',
-    href: 'https://x.com/realcoreychiu'
+    href: 'https://x.com/duanzher'
   },
-  {
-    name: 'Bsky',
-    icon: 'bsky',
-    href: 'https://bsky.app/profile/coreychiu.com'
-  },
-  {
-    name: 'Jike',
-    icon: 'pill',
-    href: 'https://okjk.co/P7c1zU'
-  },
+  // {
+  //   name: 'Bsky',
+  //   icon: 'bsky',
+  //   href: 'https://bsky.app/profile/coreychiu.com'
+  // },
+  // {
+  //   name: 'Jike',
+  //   icon: 'pill',
+  //   href: 'https://okjk.co/P7c1zU'
+  // },
   {
     name: 'Github',
     icon: 'github',
-    href: 'https://github.com/iamcorey'
+    href: 'https://github.com/pang-xf'
   },
   {
     name: 'Wechat',
     icon: 'wechat',
-    href: 'https://mp.weixin.qq.com/s/DxnRgqNfgzXIhqj6w_x0dQ'
+    href: 'https://img.pxfe.top/v2/v4dyL5T.jpeg'
   },
-  {
-    name: 'Discord',
-    icon: 'discord',
-    href: 'https://discord.gg/xTxRg3Ej'
-  },
-  {
-    name: 'Ko-fi',
-    icon: 'coffee',
-    href: 'https://ko-fi.com/coreychiu'
-  }
+  // {
+  //   name: 'Discord',
+  //   icon: 'discord',
+  //   href: 'https://discord.gg/xTxRg3Ej'
+  // },
+  // {
+  //   name: 'Ko-fi',
+  //   icon: 'coffee',
+  //   href: 'https://ko-fi.com/coreychiu'
+  // }
 ]
 
 // https://simpleicons.org/
@@ -79,9 +79,9 @@ export const techIcons = [
   "javascript",
   "supabase",
   "cloudflare",
-  "java",
-  "oracle",
-  "mysql",
+  // "java",
+  // "oracle",
+  // "mysql",
   "react",
   "nodedotjs",
   "nextdotjs",
@@ -93,9 +93,9 @@ export const techIcons = [
   "git",
   "github",
   "visualstudiocode",
-  "androidstudio",
-  "ios",
-  "apple",
+  // "androidstudio",
+  // "ios",
+  // "apple",
   "wechat"
 ];
 

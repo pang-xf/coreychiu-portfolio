@@ -1,0 +1,60 @@
+---
+title: '清理git中的大文件objects/pack'
+description: '最近某个项目构建的时候，jenkins一直报错，问了运维才知道是项目文件太大了导致打包失败，所以花一下午排查下问题并记录。'
+date: '2024-06-07'
+---
+
+# 一、问题源：
+经过排序是.git下pack文件过大了，足足2.5个G，也难怪会不让过。
+
+## 所以…pack文件是啥?
+> 在Git中，pack文件是Git用来存储和传输对象的一种方式。当Git仓库中的对象（如提交、树、文件等）数量增加时，Git会将这些对象打包成一个或多个pack文件，以减少存储空间和提高网络传输效率。
+看了下，项目的提交记录和维护人员确实人多，好吧，那就从pack文件入手；
+
+# 二、解决方案：
+
+## 1、找到当前项目前五个最大的文件
+```javascript
+git rev-list --objects --all | grep "$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -5 | awk '{print$1}')"
+```
+![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F7d10dd59-1d6d-4dbd-8321-6f37e7a5191c%2F661fc9a8-5667-488e-baba-f265354299e0%2FUntitled.png?table=block&id=5e8cafd9-bcc9-414b-ae84-5e1ab358680a&cache=v2)
+
+这里看到是“release/report.json”文件占用最大，记录一下，下面用得着；
+
+## 2、将大文件从git记录中移除
+
+```javascript
+git filter-branch --force --index-filter 'git rm -rf --cached --ignore-unmatch 大文件名' --prune-empty --tag-name-filter cat -- --all
+```
+
+![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F7d10dd59-1d6d-4dbd-8321-6f37e7a5191c%2Ff656864b-de2d-40ed-844d-bb54bff0cebc%2FUntitled.png?table=block&id=56affc74-92d5-4436-ade8-dedda8a85eb8&cache=v2)
+
+## 3、彻底删除并清理空间
+
+```javascript
+rm -rf .git/refs/original/
+git reflog expire --expire=now --all
+git gc --prune=now
+git gc --aggressive --prune=now
+```
+![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F7d10dd59-1d6d-4dbd-8321-6f37e7a5191c%2F95c4eccf-e44d-43be-aa41-074a9de7c5ed%2FUntitled.png?table=block&id=6c00baa7-449d-4418-a72f-82552df7f4d1&cache=v2)
+
+## 4、查看优化效果
+查看效果我们可以用`du -h -d 1 .git`来看当前git大小；
+![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F7d10dd59-1d6d-4dbd-8321-6f37e7a5191c%2F6e736c3e-e120-47be-8e68-4f66c8aeaffa%2FUntitled.png?table=block&id=0de96d6a-ad07-4772-b7b8-030f95331636&cache=v2)
+可以看到，经过处理已经优化到725MB了，最后同步到云端
+
+
+## 5、同步到云端并删除本地仓库中已经不存在的远程跟踪分支
+
+```javascript
+git push --force
+git remote prune origin
+```
+
+## 6、再次尝试构建
+![image](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F7d10dd59-1d6d-4dbd-8321-6f37e7a5191c%2Fe9f5db15-1526-4b47-b183-6b285b63f6f6%2FUntitled.png?table=block&id=fb720ba3-5ef1-4bd6-bb76-f30f30229050&cache=v2)
+可以看到，再次构建已经成功，下班！！！
+
+---
+

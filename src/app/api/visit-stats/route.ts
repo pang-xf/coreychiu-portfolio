@@ -7,7 +7,6 @@ const OPENPANEL_PROJECT_ID = process.env.OPENPANEL_PROJECT_ID;
 export async function GET() {
   try {
     const url1 = `${OPENPANEL_API_URL}/export/events?projectId=${OPENPANEL_PROJECT_ID}&event=screen_view`
-    console.log('*👏👏👏***url1****', url1);
     // 获取总访问数据
     const response = await fetch(`${OPENPANEL_API_URL}/export/events?projectId=${OPENPANEL_PROJECT_ID}&event=screen_view`, {
       headers: {
@@ -37,8 +36,6 @@ export async function GET() {
 
     // 今天的 yyyy-MM-dd
     const todayStr = today.toISOString().split('T')[0];
-    const url = `${OPENPANEL_API_URL}/export/events?projectId=${OPENPANEL_PROJECT_ID}&event=screen_view&start=${yesterdayStr}&end=${todayStr}`
-    console.log('*👏👏👏***url****', url);
     const todayResponse = await fetch(`${OPENPANEL_API_URL}/export/events?projectId=${OPENPANEL_PROJECT_ID}&event=screen_view&start=${yesterdayStr}&end=${todayStr}`, {
       headers: {
         'openpanel-client-id': OPENPANEL_CLIENT_ID!,
