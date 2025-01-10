@@ -1,13 +1,5 @@
-// pages/api/rebuild.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-
-type ResponseData = {
-  message: string;
-  timestamp?: string;
-} | {
-  error: string;
-  details?: string;
-}
+// src/app/api/rebuild/route.ts
+import { NextRequest } from 'next/server'
 
 interface VercelDeployHookResponse {
   job: {
@@ -16,22 +8,21 @@ interface VercelDeployHookResponse {
   };
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
-) {
-  // 只允许 POST 请求
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
+export async function POST(request: NextRequest) {
   try {
     // 环境变量验证
     const projectId = process.env.VERCEL_PROJECT_ID;
     const accessToken = process.env.VERCEL_ACCESS_TOKEN;
 
     if (!projectId || !accessToken) {
-      throw new Error('Missing required environment variables');
+      return new Response(JSON.stringify({ 
+        error: 'Missing required environment variables' 
+      }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     }
 
     // 触发重新部署
@@ -53,16 +44,26 @@ export default async function handler(
 
     const data: VercelDeployHookResponse = await response.json();
 
-    return res.status(200).json({
+    return new Response(JSON.stringify({
       message: `Build triggered successfully. Job ID: ${data.job.id}`,
       timestamp: new Date().toISOString()
+    }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
   } catch (error) {
     console.error('Build trigger error:', error);
-    return res.status(500).json({
+    return new Response(JSON.stringify({
       error: 'Failed to trigger build',
       details: error instanceof Error ? error.message : 'Unknown error occurred'
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   }
 }
