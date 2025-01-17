@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // 触发重新部署
     const response = await fetch(
-      `https://api.vercel.com/v1/integrations/deploy/${projectId}/YuM9rFYEGAtQFTbUtqHH8PrV`,
+      `https://api.vercel.com/v1/integrations/deploy/prj_sBA1TdrCEdCrVKB9YvbYb1DQkGGB/CvmlrP2dTC`,
       {
         method: 'POST',
         headers: {
@@ -66,4 +66,8 @@ export async function POST(request: NextRequest) {
       },
     });
   }
+}
+
+export async function GET(request: NextRequest) {
+  return POST(request);
 }
