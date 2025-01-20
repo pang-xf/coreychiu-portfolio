@@ -9,26 +9,26 @@ date: '2025-01-20'
 - 想直接启动本地调试远程客户线上环境
 
 ### 怎么使用（以Mac为例）
-- 全局安装
-	```bash
-		npm install -g whistle
-	```
-- 启动 Whistle
-	```bash
-		w2 start
-	```
+	- 全局安装
+		```bash
+			npm install -g whistle
+		```
+	- 启动 Whistle
+		```bash
+			w2 start
+		```
 
-- 配置代理
-	1、访问你要代理的远程客户地址：例如：https://a.com
-	2、找到network下的文档并全量复制
-		![img](https://img.pxfe.top/v2/ZIaxDRn.png)
-	3、打开浏览器访问代理控制面板地址：http://127.0.0.1:8899，找到Values菜单下，新建一个proxy.html，名字可以随便取，拷贝进刚刚我们复制的内容，增加本地的静态资源代理地址（最后会说为什么是dev-vendor.chunk.js，lib.bundle.js这两个，这个因项目而异）。
-		![img](https://img.pxfe.top/v2/E9WWLL8.png)
-	4、打开Rules，添加代理规则，这里需要将本地的静态资源与线上进行替换，其次是代理指定的静态文件到我们刚刚创建的proxy.html
-		![img](https://img.pxfe.top/v2/zEwkZBF.png)
-	5、w2 proxy 启动成功后，就可以效果预览
-		再次打开客户的线上环境，还是network的文档里，看看下面的地址是否被成功添加进去，有的话就是成功代理；
-		![img](https://img.pxfe.top/v2/FajPdcJ.png)
+	- 配置代理
+		1、访问你要代理的远程客户地址：例如：https://a.com
+		2、找到network下的文档并全量复制
+			![img](https://img.pxfe.top/v2/ZIaxDRn.png)
+		3、打开浏览器访问代理控制面板地址：http://127.0.0.1:8899，找到Values菜单下，新建一个proxy.html，名字可以随便取，拷贝进刚刚我们复制的内容，增加本地的静态资源代理地址（最后会说为什么是dev-vendor.chunk.js，lib.bundle.js这两个，这个因项目而异）。
+			![img](https://img.pxfe.top/v2/E9WWLL8.png)
+		4、打开Rules，添加代理规则，这里需要将本地的静态资源与线上进行替换，其次是代理指定的静态文件到我们刚刚创建的proxy.html
+			![img](https://img.pxfe.top/v2/zEwkZBF.png)
+		5、w2 proxy 启动成功后，就可以效果预览
+			再次打开客户的线上环境，还是network的文档里，看看下面的地址是否被成功添加进去，有的话就是成功代理；
+			![img](https://img.pxfe.top/v2/FajPdcJ.png)
 
 ### 讲讲怎么看本地有哪些资源需要代理（上面第三点展开讲）
 
