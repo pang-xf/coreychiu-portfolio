@@ -28,6 +28,16 @@ export type ProjectItemType = {
       tags: ['Mini Program', 'Watermark Removal'],
       logo: 'https://img.pxfe.top/v2/0D2ZB11.png'
     },
+    {
+      name: '吐司小红薯',
+      description:
+        '做东大最好用的小红书工具',
+      link: { href: 'img.pxfe.top/v2/C3cJsAh.jpeg', label: 'mini-template' },
+      category: ['mini program'],
+      techStack: ['Taro', 'React'],
+      tags: ['Mini Program', 'RedNote'],
+      logo: 'https://img.pxfe.top/v2/578XgZg.png'
+    },
   ]
   
   export const githubProjects: Array<ProjectItemType> = [
