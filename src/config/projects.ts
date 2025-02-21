@@ -40,7 +40,7 @@ export const projects: Array<ProjectItemType> = [
   {
     name: 'TwitterVideoDownloader',
     description: '小蓝鸟视频下载器',
-    link: { href: 'https://xdownload.top', label: 'Downloader' },
+    link: { href: 'xdownload.top', label: 'Downloader' },
     category: ['Twitter'],
     techStack: ['Vite', 'React'],
     tags: ['Twitter'],
